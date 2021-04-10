@@ -112,16 +112,34 @@
   }
 
   function jogar() {
+      var divResultado = document.getElementById("resultado")
       var atributoSelecionado = obtemAtributoSelecionado()
 
       if (cartaJogador.atributos[atributoSelecionado] > cartaMaquina.atributos[atributoSelecionado]) {
-          alert('Venceu a carta máquina')
+          htmlResultado = '<p class="resultado-final">Venceu</p>'
       } else if (cartaJogador.atributos[atributoSelecionado] < cartaMaquina.atributos[atributoSelecionado]) {
-          alert('Perdeu. Carta da máquina é maior')
+        htmlResultado = '<p class="resultado-final">Perdeu</p>'
       } else {
-          alert('Empatou!')
+        htmlResultado = '<p class="resultado-final">Empatou</p>'
       }
-      console.log(cartaMaquina)
+    
+    divResultado.innerHTML = htmlResultado
+    exibeCartaMaquina()
+  }
+
+  function exibeCartaMaquina(){
+    var divCartaMaquina = document.getElementById("carta-maquina")
+    var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
+    divCartaMaquina.style.backgroundImage=`url(${cartaMaquina.imagem})`
+    var nome = `<p class="carta-subtitle">${cartaMaquina.nome}</p>`
+    var opcoesTexto = ""
+
+    for (var atributo in cartaMaquina.atributos) {
+          opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cartaMaquina.atributos[atributo] + "<br>"
+      }
+      var html = "<div id='opcoes' class='carta-status'>"
+
+    divCartaMaquina.innerHTML = moldura+nome+html+opcoesTexto+'</div>'
   }
     </script>
 </body>
